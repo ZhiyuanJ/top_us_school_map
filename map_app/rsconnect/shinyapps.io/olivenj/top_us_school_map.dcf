@@ -1,0 +1,13 @@
+name: top_us_school_map
+title: top_us_school_map
+username:
+account: olivenj
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 7911720
+bundleId: 6651713
+url: https://olivenj.shinyapps.io/top_us_school_map/
+when: 1671416486.94538
+lastSyncTime: 1671416486.9454
+asMultiple: FALSE
+asStatic: FALSE

@@ -1,0 +1,61 @@
+---
+title: "Top US High School: Application to top school hunters"
+subtitle: "Sta 523 - Final Project"
+format: 
+  html:
+    self-contained: true
+author:
+-  Jinan Zhou
+-  Jerrey Yang
+-  Wenxin Song
+-  Zhiyuan Jiang
+---
+
+## Setup
+
+To start the application, you could run any single r scripts inside the `map_app` folder or opening [this link](https://olivenj.shinyapps.io/top_us_high_school/).
+
+## Introduction
+This Project is an interactive Shiny App  allowing users to investigating Top US high Schools.
+
+It contains two Main parts: an interactive map and a data analyze dashboard.
+
+From the map, users could view top 1000 high schools from the map, and filtering their desired schools based on different categories like the location (State/Town), the school type (Public/Private), the program offered (AP/IB/Gifted Children Program), etc.
+Each school will be displayed as a marker on the map, and the users are allowed to click on the marker to have an overview about the schools information, including a simple introduction, the address, a callable phone number, link to the school's website, etc.
+
+For the data analysis dashboard, the users could investigates a series of explanatory data analysis based on different variables the application offered.
+
+All our files are
+
+
+
+## Methods / Implementation
+The main body of the map is build using `Shiny`, and the map is implemented using `leaflet`.
+
+The data we used comes from [niche](niche.com), an online ranking and review website.
+To collect the data, we initially planning to use `rvest` and other web scrapping packages, but niche has strict anti-scrap protocol, and it only allows user to scrap the data once every 30 minutes.
+To bypass the rule, we used an Chrome extension called [DownloadThemAll!](https://www.downthemall.net/) to manually download all over thousands webpages.
+Although it sounds like a time consuming task, thanks to the in-build function of the extension and regular expression, we manage to download all webpage in only 5 minutes. 
+
+Then, we use `rvest` and `tidyverse` to scrap, clean, and store the data from the downloaded webpages. 
+
+For more information about how to use the application, you could view the `About` tab from the App.
+
+
+
+## Discussion & Conclusions
+
+As we are writing the applications, many features that we planned are failed to achieve due to time limits or tech difficulties, and here we will list some of them:
+
+1. Data Collection: due to the anti-scrap practice, we could not obtain the data in a reproduce and efficient way, and the data set could not auto-update. Niche as a company does not have API for third-party to gain access to their data, and we had contacted their data team request for raw data but did not receive any feedback at the time this document is written.
+
+2. Data Quality and Cleaning: The quality of the data we have is generally good, but for certain variables/parts of the data set, they are more nasty, and really hard to handle with. For example, we initially plan to add information about the application process, like the deadline, the application fee. But this information only available to a small set of private schools, so by balancing the cost and benefit, we decided to delete this feature. Some other problem we encountered including invalid URL link, and incomplete financial information.
+
+3. Multiple Selecting: One feature we want to achieve is allowing the user to select multiple school types (for instance, a user may want to find a all-boys, boarding school). This could be easily achieved in the UI level, but because the schools types are organized as a nested list in our data set, and not every schools has equal length of the list (some schools have three different type: single gender, religious, and boarding school, while some does not have at all), we could not find a easy way to filter the schools which has more than one type. Our current method could filtering school with only one type by looking a the type column. 
+
+4. Map refreshing and recreating: Our current implementation of the map will cause the map to recreate every times we change the filter, the ideal implementation will be to keep the map stable, while delete unnecessary marker and draw new marker. Although we believe this could be achieve by using the `leaflet::leafletproxy()` methods, but till the time we write this document, we have not completely figured out how it works, so we have to give up using this method. 
+
+Overall, the application has lots of potential and possibilities to extend, if time permits, we could add more features, improve the code efficiency, or redesign the UI using CSS.
+
+But at this stage, we are happy with what we produced, and hope you enjoy using our small application.
+
